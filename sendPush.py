@@ -27,9 +27,7 @@ while (True):
         f.write(msg[0])
         f.close()
 
-
         url = url_final + "ShowToken/"
-
 
         _headers = {'Content-Type': 'application/json'}
 
@@ -42,25 +40,18 @@ while (True):
         while (j < len(data)):
             tokens.append(data[j]['token'])
             j = j+1
-
-
             print(tokens)
-
             now = datetime.now()
-
 
         dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
 
         print("date and time =", dt_string)
 
-
         msg = msg[0]
         titulo = "Sistema de Alerta Temprana"
-        fcm.sendPush(titulo, msg, tokens)
-
+        fcm.sendPush(title=titulo, msg=msg, registration_token=tokens)
 
         url = url_final + "Insert/"
-
 
         datas = '''
 {
@@ -83,7 +74,7 @@ while (True):
 }
 """
 
-        time.sleep(20)
+        time.sleep(5)
         response2 = requests.put(url=url2, data=datas2, headers=_headers)
         print(response2.content)
 
